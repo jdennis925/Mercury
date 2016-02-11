@@ -61,17 +61,63 @@ var MakeMap_Click = function()
             var colId = "cell_" + rowIndex + "_" + colIndex;
             cell.setAttribute("id", colId);
             $(row.id).appendChild(cell);
-            $(colId).onclick = btnImpassableTerrain_Click;
+            $(colId).onclick = btnCell_Click;
+            
         }
     }
+    var terrainSelector = document.createElement("select");
+    terrainSelector.id="terrainSelector"
+    var terrainFree = document.createElement("option");
+    terrainFree.id = "terrainFree"
+    terrainFree.text = "Free";
+    var terrainDifficult = document.createElement("option");
+    terrainDifficult.text = "Difficult";
+    terrainDifficult.id = "terrainDifficult"
+    
+    var terrainImpassable = document.createElement("option");
+    terrainImpassable.text = "Impassable";
+    terrainImpassable.id = "terrainImpassable"
+    
+   
+    
+    terrainSelector.options.add(terrainFree);
+    terrainSelector.options.add(terrainDifficult);
+    terrainSelector.options.add(terrainImpassable);
+    document.body.appendChild(terrainSelector);
+    
+    $(terrainSelector.id).onchange = selector_Click;
+    
+
 }
 
-var btnImpassableTerrain_Click = function(event)
+var color = "#FFFFFF";
+
+var selector_Click = function(event)
+{
+   
+    var selector= $("terrainSelector");
+    var picked = selector.options[selector.selectedIndex].text;
+    if(picked=="Free"){
+        color= "#FFFFFF";
+    }
+    else if(picked=="Difficult"){
+        color="#FF0000";
+    }
+    else if(picked=="Impassable"){
+        color="#000000";
+    }
+    else{
+        alert("NONE PICKED")
+    }
+    
+    
+}
+
+
+var btnCell_Click = function(event)
 { 
     var cell = event.target;
-    cell.setAttribute("bgcolor", "#FFFF00")
-    var text = document.createTextNode("X");
-    cell.appendChild(text);
+    cell.setAttribute("bgcolor", color)
 }
 
 window.onload = function()
