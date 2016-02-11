@@ -57,18 +57,18 @@ var MakeMap_Click = function()
 	
         for(var colIndex = 0; colIndex < colCount; colIndex++)
         {
-            var col = document.createElement("TD");
+            var cell = document.createElement("TD");
             var colId = "cell_" + rowIndex + "_" + colIndex;
-            col.setAttribute("id", colId);
-            $(row.id).appendChild(col);
+            cell.setAttribute("id", colId);
+            $(row.id).appendChild(cell);
             $(colId).onclick = btnImpassableTerrain_Click;
         }
     }
 }
 
-var btnImpassableTerrain_Click = function()
-{
-    var cell = $("cell_2_2");
+var btnImpassableTerrain_Click = function(event)
+{ 
+    var cell = event.target;
     cell.setAttribute("bgcolor", "#FFFF00")
     var text = document.createTextNode("X");
     cell.appendChild(text);
