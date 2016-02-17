@@ -27,8 +27,60 @@ var AddOneButton_Click = function()
     $(y.id).appendChild(z);
 }
 
+var color = "#FFFFFF";
+
+var selector_Click = function(event)
+{
+   
+    var selector= $("terrainSelector");
+    var picked = selector.options[selector.selectedIndex].text;
+    if(picked=="Free"){
+        color= "#FFFFFF";
+    }
+    else if(picked=="Difficult"){
+        color="#FF0000";
+    }
+    else if(picked=="Impassable"){
+        color="#000000";
+    }
+    else{
+        alert("NONE PICKED")
+    }
+    
+    
+}
+
+
+var terrainSelector = document.createElement("select");
+    
+     var terrainOptionHelper = function(optionName)
+     {
+         var terrainNew = document.createElement("option");
+         terrainNew.id= "terrain" + optionName;
+         terrainNew.text = optionName;
+         terrainSelector.options.add(terrainNew);
+     }
+    
+    
+
+    
+
+ 
+
 var MakeMap_Click = function()
 {
+    terrainSelector.id="terrainSelector"
+    terrainOptionHelper("Free");
+    terrainOptionHelper("Difficult");
+    terrainOptionHelper("Impassable"); 
+    
+    
+    
+       document.body.appendChild(terrainSelector);
+       $(terrainSelector.id).onchange = selector_Click;
+    
+    
+    
     if($("mapTable"))
     {
 	   document.body.removeChild($("mapTable"))
@@ -65,53 +117,24 @@ var MakeMap_Click = function()
             
         }
     }
-    var terrainSelector = document.createElement("select");
-    terrainSelector.id="terrainSelector"
-    var terrainFree = document.createElement("option");
-    terrainFree.id = "terrainFree"
-    terrainFree.text = "Free";
-    var terrainDifficult = document.createElement("option");
-    terrainDifficult.text = "Difficult";
-    terrainDifficult.id = "terrainDifficult"
     
-    var terrainImpassable = document.createElement("option");
-    terrainImpassable.text = "Impassable";
-    terrainImpassable.id = "terrainImpassable"
-    
-   
-    
-    terrainSelector.options.add(terrainFree);
-    terrainSelector.options.add(terrainDifficult);
-    terrainSelector.options.add(terrainImpassable);
-    document.body.appendChild(terrainSelector);
-    
-    $(terrainSelector.id).onchange = selector_Click;
-    
-
-}
-
-var color = "#FFFFFF";
-
-var selector_Click = function(event)
-{
-   
-    var selector= $("terrainSelector");
-    var picked = selector.options[selector.selectedIndex].text;
-    if(picked=="Free"){
-        color= "#FFFFFF";
-    }
-    else if(picked=="Difficult"){
-        color="#FF0000";
-    }
-    else if(picked=="Impassable"){
-        color="#000000";
-    }
-    else{
-        alert("NONE PICKED")
-    }
     
     
 }
+
+    
+    
+   
+    
+    
+
+    
+    
+    
+
+
+
+
 
 
 var btnCell_Click = function(event)
