@@ -27,15 +27,36 @@ var AddOneButton_Click = function()
     $(y.id).appendChild(z);
 }
 
-var color = "#FFFFFF";
+var color = "#F3E2A9";
 
-var selector_Click = function(event)
+var terrainSelector_Click = function(event)
 {
    
     var selector= $("terrainSelector");
     var picked = selector.options[selector.selectedIndex].text;
     if(picked=="Free"){
-        color= "#FFFFFF";
+        color= "#F3E2A9";
+    }
+    else if(picked=="Difficult"){
+        color="#FF0000";
+    }
+    else if(picked=="Impassable"){
+        color="#000000";
+    }
+    else{
+        alert("NONE PICKED")
+    }
+    
+    
+}
+
+var creatureSelector_Click = function(event)
+{
+   
+    var selector= $("terrainSelector");
+    var picked = selector.options[selector.selectedIndex].text;
+    if(picked=="Free"){
+        color= "#F3E2A9";
     }
     else if(picked=="Difficult"){
         color="#FF0000";
@@ -55,16 +76,13 @@ var selector_Click = function(event)
     
      var terrainOptionHelper = function(optionNameList, selector)
      {
-       
-         
+               
          var terrainLabel = document.createElement("LABEL"); 
          
-         terrainLabel.innerHTML= "Terrain";
-         
+         terrainLabel.innerHTML= "Terrain";     
          
          for (var index = 0; index < optionNameList.length; index++) {
              
-            
              var terrainNew = document.createElement("option");
              terrainNew.id= "terrain" + optionNameList[index];
              terrainNew.text = optionNameList[index];
@@ -72,12 +90,26 @@ var selector_Click = function(event)
              
          }
          
-        
-         
-         
      }
     
 
+      var creatureOptionHelper = function(optionNameList, selector)
+     {
+               
+         var creatureLabel = document.createElement("LABEL"); 
+         
+         creatureLabel.innerHTML= "Creatures";     
+         
+         for (var index = 0; index < optionNameList.length; index++) {
+             
+             var creatureNew = document.createElement("option");
+             creatureNew.id= "creature" + optionNameList[index];
+             creatureNew.text = optionNameList[index];
+             selector.options.add(creatureNew);
+             
+         }
+         
+     }
 
     
 
@@ -88,17 +120,19 @@ var MakeMap_Click = function()
     var terrainSelector = document.createElement("select");
     terrainSelector.id="terrainSelector";
     
+    var creatureSelector = document.createElement("select");
+    creatureSelector.id = "creatureSelector"
+    
     
     terrainOptionHelper(["Free","Difficult","Impassable"], terrainSelector);
-    
-     
-    
-
-    
-    
+    creatureOptionHelper(["Striker","Defender","Leader","Controller","MONSTER"], creatureSelector);
+  
     
        document.body.appendChild(terrainSelector);
-       $(terrainSelector.id).onchange = selector_Click;
+       $(terrainSelector.id).onchange = terrainSelector_Click;
+       
+       document.body.appendChild(creatureSelector);
+       $(creatureSelector.id).onChange = creatureSelector_Click;
     
     
     
@@ -144,19 +178,6 @@ var MakeMap_Click = function()
 }
 
     
-    
-   
-    
-    
-
-    
-    
-    
-
-
-
-
-
 
 var btnCell_Click = function(event)
 { 
