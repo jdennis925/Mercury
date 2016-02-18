@@ -78,8 +78,12 @@ var creatureSelector_Click = function(event)
      {
                
          var terrainLabel = document.createElement("LABEL"); 
+         terrainLabel.setAttribute("for", selector);
+         terrainLabel.innerHTML= "Terrain";
+         document.body.appendChild(terrainLabel);
          
-         terrainLabel.innerHTML= "Terrain";     
+         
+           
          
          for (var index = 0; index < optionNameList.length; index++) {
              
@@ -90,6 +94,9 @@ var creatureSelector_Click = function(event)
              
          }
          
+         
+         
+         
      }
     
 
@@ -97,8 +104,10 @@ var creatureSelector_Click = function(event)
      {
                
          var creatureLabel = document.createElement("LABEL"); 
-         
-         creatureLabel.innerHTML= "Creatures";     
+         creatureLabel.setAttribute("for", selector);
+         creatureLabel.innerHTML= "Creatures";
+         document.body.appendChild(creatureLabel);
+              
          
          for (var index = 0; index < optionNameList.length; index++) {
              
@@ -120,19 +129,24 @@ var MakeMap_Click = function()
     var terrainSelector = document.createElement("select");
     terrainSelector.id="terrainSelector";
     
+    
+    
     var creatureSelector = document.createElement("select");
     creatureSelector.id = "creatureSelector"
     
+    var brk = document.createElement("br");
+    
+    
     
     terrainOptionHelper(["Free","Difficult","Impassable"], terrainSelector);
-    creatureOptionHelper(["Striker","Defender","Leader","Controller","MONSTER"], creatureSelector);
-  
+    document.body.appendChild(terrainSelector);
     
-       document.body.appendChild(terrainSelector);
-       $(terrainSelector.id).onchange = terrainSelector_Click;
-       
-       document.body.appendChild(creatureSelector);
-       $(creatureSelector.id).onChange = creatureSelector_Click;
+    $(terrainSelector.id).onchange = terrainSelector_Click;
+    
+    creatureOptionHelper(["Striker","Defender","Leader","Controller","MONSTER"], creatureSelector);
+    document.body.appendChild(creatureSelector);
+    document.body.appendChild(brk);
+    $(creatureSelector.id).onChange = creatureSelector_Click;
     
     
     
