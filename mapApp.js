@@ -181,6 +181,13 @@ var MakeMap_Click = function()
             var cell = document.createElement("TD");
             var colId = "cell_" + rowIndex + "_" + colIndex;
             cell.setAttribute("id", colId);
+            
+            var img = document.createElement("IMG");
+            img.setAttribute("src", "cthulhu.png");
+            img.setAttribute("width", "100");
+            img.setAttribute("height", "100");
+            
+            cell.appendChild(img);          
             $(row.id).appendChild(cell);
             $(colId).onclick = btnCell_Click;
             
