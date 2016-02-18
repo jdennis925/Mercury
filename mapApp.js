@@ -28,6 +28,8 @@ var AddOneButton_Click = function()
 }
 
 var color = "#F3E2A9";
+var creaturePic = document.createElement("img");
+
 
 var terrainSelector_Click = function(event)
 {
@@ -53,16 +55,28 @@ var terrainSelector_Click = function(event)
 var creatureSelector_Click = function(event)
 {
    
-    var selector= $("terrainSelector");
+    var selector= $("creatureSelector");
+    
     var picked = selector.options[selector.selectedIndex].text;
-    if(picked=="Free"){
-        color= "#F3E2A9";
+    
+    if(picked=="Striker"){
+       
     }
-    else if(picked=="Difficult"){
-        color="#FF0000";
+    else if(picked=="Defender"){
+        
     }
-    else if(picked=="Impassable"){
-        color="#000000";
+    else if(picked=="Leader"){
+        
+    }
+    else if(picked=="Controller"){
+        
+    }
+    else if(picked=="MONSTER"){
+        
+            creaturePic.setAttribute("src", "cthulhu.png");
+            creaturePic.setAttribute("width", "100");
+            creaturePic.setAttribute("height", "100");
+                     
     }
     else{
         alert("NONE PICKED")
@@ -132,7 +146,7 @@ var MakeMap_Click = function()
     
     
     var creatureSelector = document.createElement("select");
-    creatureSelector.id = "creatureSelector"
+    creatureSelector.id ="creatureSelector";
     
     var brk = document.createElement("br");
     
@@ -145,8 +159,8 @@ var MakeMap_Click = function()
     
     creatureOptionHelper(["Striker","Defender","Leader","Controller","MONSTER"], creatureSelector);
     document.body.appendChild(creatureSelector);
-    document.body.appendChild(brk);
-    $(creatureSelector.id).onChange = creatureSelector_Click;
+  
+    $(creatureSelector.id).onchange = creatureSelector_Click;
     
     
     
@@ -182,12 +196,7 @@ var MakeMap_Click = function()
             var colId = "cell_" + rowIndex + "_" + colIndex;
             cell.setAttribute("id", colId);
             
-            var img = document.createElement("IMG");
-            img.setAttribute("src", "cthulhu.png");
-            img.setAttribute("width", "100");
-            img.setAttribute("height", "100");
-            
-            cell.appendChild(img);          
+           
             $(row.id).appendChild(cell);
             $(colId).onclick = btnCell_Click;
             
@@ -204,6 +213,11 @@ var btnCell_Click = function(event)
 { 
     var cell = event.target;
     cell.setAttribute("bgcolor", color)
+    var creaturePicCopy = document.createElement("img");
+    creaturePicCopy.setAttribute("src", "cthulhu.png");
+    creaturePicCopy.setAttribute("width", "100");
+    creaturePicCopy.setAttribute("height", "100");
+    cell.appendChild(creaturePicCopy);
 }
 
 window.onload = function()
