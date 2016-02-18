@@ -51,17 +51,33 @@ var selector_Click = function(event)
 }
 
 
-var terrainSelector = document.createElement("select");
+
     
-     var terrainOptionHelper = function(optionName)
+     var terrainOptionHelper = function(optionNameList, selector)
      {
-         var terrainNew = document.createElement("option");
-         terrainNew.id= "terrain" + optionName;
-         terrainNew.text = optionName;
-         terrainSelector.options.add(terrainNew);
+       
+         
+         var terrainLabel = document.createElement("LABEL"); 
+         
+         terrainLabel.innerHTML= "Terrain";
+         
+         
+         for (var index = 0; index < optionNameList.length; index++) {
+             
+            
+             var terrainNew = document.createElement("option");
+             terrainNew.id= "terrain" + optionNameList[index];
+             terrainNew.text = optionNameList[index];
+             selector.options.add(terrainNew);
+             
+         }
+         
+        
+         
+         
      }
     
-    
+
 
     
 
@@ -69,10 +85,15 @@ var terrainSelector = document.createElement("select");
 
 var MakeMap_Click = function()
 {
-    terrainSelector.id="terrainSelector"
-    terrainOptionHelper("Free");
-    terrainOptionHelper("Difficult");
-    terrainOptionHelper("Impassable"); 
+    var terrainSelector = document.createElement("select");
+    terrainSelector.id="terrainSelector";
+    
+    
+    terrainOptionHelper(["Free","Difficult","Impassable"], terrainSelector);
+    
+     
+    
+
     
     
     
