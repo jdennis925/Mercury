@@ -1,7 +1,7 @@
-
 var $ = function(id){
 	return document.getElementById(id);
 }
+
 var AddOneButton_Click = function()
 {
 	var cur2 = parseFloat($("AddOneButton").value);
@@ -17,18 +17,153 @@ var AddOneButton_Click = function()
     
 	var y = document.createElement("TR");
     y.setAttribute("id", "myTr"+ cur);
-    document.getElementById("myTable").appendChild(y);
+    $("myTable").appendChild(y);
 
     var z = document.createElement("TD");
     z.setAttribute("id", "myTd"+ cur);
     
     var t = document.createTextNode("cell");
     z.appendChild(t);
-    document.getElementById(y.id).appendChild(z);
+    $(y.id).appendChild(z);
 }
 
-var MapMap_Click = function()
+var color = "#F3E2A9";
+var creaturePic = document.createElement("img");
+
+
+var terrainSelector_Click = function(event)
 {
+   
+    var selector= $("terrainSelector");
+    var picked = selector.options[selector.selectedIndex].text;
+    if(picked=="Free"){
+        color= "#F3E2A9";
+    }
+    else if(picked=="Difficult"){
+        color="#FF0000";
+    }
+    else if(picked=="Impassable"){
+        color="#000000";
+    }
+    else{
+        alert("NONE PICKED")
+    }
+    
+    
+}
+
+var creatureSelector_Click = function(event)
+{
+   
+    var selector= $("creatureSelector");
+    
+    var picked = selector.options[selector.selectedIndex].text;
+    
+    if(picked=="Striker"){
+       
+    }
+    else if(picked=="Defender"){
+        
+    }
+    else if(picked=="Leader"){
+        
+    }
+    else if(picked=="Controller"){
+        
+    }
+    else if(picked=="MONSTER"){
+        
+            creaturePic.setAttribute("src", "cthulhu.png");
+            creaturePic.setAttribute("width", "100");
+            creaturePic.setAttribute("height", "100");
+                     
+    }
+    else{
+        alert("NONE PICKED")
+    }
+    
+    
+}
+
+
+
+    
+     var terrainOptionHelper = function(optionNameList, selector)
+     {
+               
+         var terrainLabel = document.createElement("LABEL"); 
+         terrainLabel.setAttribute("for", selector);
+         terrainLabel.innerHTML= "Terrain";
+         document.body.appendChild(terrainLabel);
+         
+         
+           
+         
+         for (var index = 0; index < optionNameList.length; index++) {
+             
+             var terrainNew = document.createElement("option");
+             terrainNew.id= "terrain" + optionNameList[index];
+             terrainNew.text = optionNameList[index];
+             selector.options.add(terrainNew);
+             
+         }
+         
+         
+         
+         
+     }
+    
+
+      var creatureOptionHelper = function(optionNameList, selector)
+     {
+               
+         var creatureLabel = document.createElement("LABEL"); 
+         creatureLabel.setAttribute("for", selector);
+         creatureLabel.innerHTML= "Creatures";
+         document.body.appendChild(creatureLabel);
+              
+         
+         for (var index = 0; index < optionNameList.length; index++) {
+             
+             var creatureNew = document.createElement("option");
+             creatureNew.id= "creature" + optionNameList[index];
+             creatureNew.text = optionNameList[index];
+             selector.options.add(creatureNew);
+             
+         }
+         
+     }
+
+    
+
+ 
+
+var MakeMap_Click = function()
+{
+    var terrainSelector = document.createElement("select");
+    terrainSelector.id="terrainSelector";
+    
+    
+    
+    var creatureSelector = document.createElement("select");
+    creatureSelector.id ="creatureSelector";
+    
+    var brk = document.createElement("br");
+    
+    
+    
+    terrainOptionHelper(["Free","Difficult","Impassable"], terrainSelector);
+    document.body.appendChild(terrainSelector);
+    
+    $(terrainSelector.id).onchange = terrainSelector_Click;
+    
+    creatureOptionHelper(["Striker","Defender","Leader","Controller","MONSTER"], creatureSelector);
+    document.body.appendChild(creatureSelector);
+  
+    $(creatureSelector.id).onchange = creatureSelector_Click;
+    
+    
+    
     if($("mapTable"))
     {
 	   document.body.removeChild($("mapTable"))
@@ -40,26 +175,53 @@ var MapMap_Click = function()
 	var rowCount = parseInt($("txtRowCount").value);
 	var colCount = parseInt($("txtColCount").value);
 	
+    for (var colIndex = 0; colIndex < colCount; colIndex++) 
+    {
+        var col = document.createElement("col");
+        col.setAttribute("width", "100");
+        $(mapTable.id).appendChild(col);      
+    }
+    
     for(var rowIndex = 0; rowIndex < rowCount; rowIndex++)
     {
         var row = document.createElement("TR");
         row.setAttribute("id", "row_" + rowIndex);
-        document.getElementById(mapTable.id).appendChild(row);
+        $(mapTable.id).appendChild(row);
+        row.setAttribute("height", "100");
+        
 	
         for(var colIndex = 0; colIndex < colCount; colIndex++)
         {
-            var col = document.createElement("TD");
-            col.setAttribute("id", "col_" + colIndex);
-    
-            var text = document.createTextNode("X");
-            col.appendChild(text);
-            document.getElementById(row.id).appendChild(col);        
+            var cell = document.createElement("TD");
+            var colId = "cell_" + rowIndex + "_" + colIndex;
+            cell.setAttribute("id", colId);
+            
+           
+            $(row.id).appendChild(cell);
+            $(colId).onclick = btnCell_Click;
+            
         }
     }
+    
+    
+    
+}
+
+    
+
+var btnCell_Click = function(event)
+{ 
+    var cell = event.target;
+    cell.setAttribute("bgcolor", color)
+    var creaturePicCopy = document.createElement("img");
+    creaturePicCopy.setAttribute("src", "cthulhu.png");
+    creaturePicCopy.setAttribute("width", "100");
+    creaturePicCopy.setAttribute("height", "100");
+    cell.appendChild(creaturePicCopy);
 }
 
 window.onload = function()
 {
-	$("AddOneButton").onclick = AddOneButton_Click;
-	$("btnMakeMap").onclick = MapMap_Click;
+	$("btnMakeMap").onclick = MakeMap_Click;
+	// $("btnImpassableTerrain").onclick = btnImpassableTerrain_Click;
 }
